@@ -19,8 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/github-script@v3
-        with:       
-          github-token: ${{secrets.LABELS_PAT}}
+        with:
           script: |
             // Labels to apply
             const labels = require(`${process.env.GITHUB_WORKSPACE}/labels.json`);
