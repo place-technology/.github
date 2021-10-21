@@ -1,0 +1,37 @@
+name: "Containerised Crystal Spec"
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: "${{ !matrix.stable && '🚧 ' || ''}}crystal: ${{ matrix.crystal }}, MT: ${{ matrix.MT }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        crystal:
+          - 1.1.1
+          - 1.2.0
+        MT: [false]
+        stable: [true]
+        include:
+          - crystal: 1.1.1
+            MT: true
+            stable: false
+          - crystal: 1.2.0
+            MT: true
+            stable: false
+          - crystal: nightly
+            stable: false
+            MT: false
+          - crystal: nightly
+            stable: false
+            MT: true
+    continue-on-error: ${{ !matrix.stable }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run docker-compose test environment
+        timeout-minutes: 25
+        run: ./test ${{ matrix.MT && '-Dpreview_mt' || '' }} --order random
+        env:
+          CRYSTAL_VERSION: ${{ matrix.crystal }}
