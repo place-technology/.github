@@ -29,7 +29,7 @@ jobs:
             MT: true
     continue-on-error: ${{ !matrix.stable }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Run docker-compose test environment
         timeout-minutes: 25
         run: ./test ${{ matrix.MT && '-Dpreview_mt' || '' }} --order random
