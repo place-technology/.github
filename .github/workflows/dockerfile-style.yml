@@ -6,7 +6,7 @@ jobs:
   find-dockerfiles:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.1.0
       - name: Build a list of Dockerfiles
         id: set-matrix
         shell: bash
@@ -24,7 +24,7 @@ jobs:
       matrix:
         dockerfile: ${{ fromJSON(needs.find-dockerfiles.output.dockerfiles) }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.1.0
       - name: Lint ${{ matrix.dockerfile }}
         uses: hadolint/hadolint-action@v1.6.0
         with:
