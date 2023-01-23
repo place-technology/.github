@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Lint ${{ matrix.dockerfile }}
-        uses: hadolint/hadolint-action@v1.6.0
+        uses: hadolint/hadolint-action@v3.1.0
         with:
           # DL3018 Allow unpinned packages
           # SC2016 Ignore single-quotes (expansion not desired)
